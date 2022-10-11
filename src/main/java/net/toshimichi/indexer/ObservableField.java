@@ -5,17 +5,28 @@ import java.util.List;
 
 public class ObservableField<O, V> {
 
-    private final O owner;
+    private O owner;
     private V value;
     private final List<ObservableFieldHandler<O, V>> handlers = new ArrayList<>();
 
-    public ObservableField(O owner, V value) {
-        this.owner = owner;
+    public ObservableField(V value) {
         this.value = value;
     }
 
     public O getOwner() {
+        if (owner == null) {
+            throw new IllegalStateException("Not initialized");
+        }
         return owner;
+    }
+
+    public void initialize(O owner) {
+        if (this.owner != null) {
+            if (this.owner.equals(owner)) return;
+            throw new IllegalStateException("Already initialized");
+        }
+
+        this.owner = owner;
     }
 
     public V get() {

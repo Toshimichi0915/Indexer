@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.function.Function;
 
-public class FlatIndexMap<K, V> extends AbstractMap<K, V> implements ObservableSetHandler<K> {
+public class FlatIndexMap<K, V> extends AbstractMap<K, V> implements ObservableSetHandler<V, K> {
 
     private final HashMap<K, V> internal = new HashMap<>();
     private final Function<V, ObservableSet<V, K>> function;
@@ -25,6 +25,7 @@ public class FlatIndexMap<K, V> extends AbstractMap<K, V> implements ObservableS
 
     public void add0(V obj) {
         ObservableSet<V, K> set = function.apply(obj);
+        set.initialize(obj);
         set.subscribe(this);
         set.forEach(it -> put0(it, obj));
     }
@@ -42,12 +43,12 @@ public class FlatIndexMap<K, V> extends AbstractMap<K, V> implements ObservableS
     }
 
     @Override
-    public void add(SimpleObservableSet<K> set, K element) {
-        put0(element, ((ObservableSet<V, K>) set).getOwner());
+    public void add(ObservableSet<V, K> set, K element) {
+        put0(element, set.getOwner());
     }
 
     @Override
-    public boolean remove(SimpleObservableSet<K> set, K element) {
+    public boolean remove(ObservableSet<V, K> set, K element) {
         return internal.remove(element) != null;
     }
 }

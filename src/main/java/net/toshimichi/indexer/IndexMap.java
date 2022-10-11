@@ -25,6 +25,7 @@ public class IndexMap<K, V> extends AbstractMap<K, V> implements ObservableField
 
     public void add0(V obj) {
         ObservableField<V, K> field = function.apply(obj);
+        field.initialize(obj);
         field.subscribe(this);
         put0(field.get(), obj);
     }

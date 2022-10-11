@@ -3,7 +3,7 @@ package net.toshimichi.indexer;
 import java.util.Iterator;
 import java.util.function.Function;
 
-public class FlatMapSet<K, V> extends SimpleObservableSet<V> implements ObservableSetHandler<V> {
+public class FlatMapSet<K, V> extends ObservableSet<Object, V> implements ObservableSetHandler<K, V> {
 
     private final Function<K, ObservableSet<K, V>> function;
 
@@ -20,8 +20,9 @@ public class FlatMapSet<K, V> extends SimpleObservableSet<V> implements Observab
 
     public void add0(K key) {
         ObservableSet<K, V> set = function.apply(key);
+        set.initialize(key);
 
-        // cannot be replaced by super#addAll because add method is overridden
+        // cannot be replaced by super#addAll because addAll method is overridden
         set.forEach(super::add);
         set.subscribe(this);
     }
@@ -34,12 +35,12 @@ public class FlatMapSet<K, V> extends SimpleObservableSet<V> implements Observab
     }
 
     @Override
-    public void add(SimpleObservableSet<V> set, V element) {
+    public void add(ObservableSet<K, V> set, V element) {
         add1(element);
     }
 
     @Override
-    public boolean remove(SimpleObservableSet<V> set, V element) {
+    public boolean remove(ObservableSet<K, V> set, V element) {
         return super.remove(element);
     }
 

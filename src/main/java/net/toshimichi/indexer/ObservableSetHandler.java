@@ -1,8 +1,8 @@
 package net.toshimichi.indexer;
 
-public interface ObservableSetHandler<E> {
+public interface ObservableSetHandler<O, E> {
 
-    void add(SimpleObservableSet<E> set, E element);
+    void add(ObservableSet<O, E> set, E element);
 
-    boolean remove(SimpleObservableSet<E> set, E element);
+    boolean remove(ObservableSet<O, E> set, E element);
 }

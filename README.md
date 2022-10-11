@@ -13,8 +13,8 @@ public class Nation {
     private final ObservableSet<Nation, Factory> factories;
 
     public Nation(UUID leader) {
-        this.leader = new ObservableField(this, leader);
-        this.factories = new ObservableSet(this);
+        this.leader = new ObservableField(leader);
+        this.factories = new ObservableSet();
     }
 
     public ObservableField<Nation, UUID> getLeader() {
@@ -34,24 +34,23 @@ public class Factory {
     private final ObservableSet<Factory, UUID> members;
 
     public Factory(UUID supervisor) {
-        this.supervisor = new ObservableField(this, supervisor);
-        this.members = new ObservableSet(this);
+        this.supervisor = new ObservableField(supervisor);
+        this.members = new ObservableSet();
     }
 }
 ```
 
-Both ObservableField and ObservableSet have **owner** field. This field is used to create/update index. Without this field, Index does not work well.
+Both ObservableField and ObservableSet have **owner** field. This field is used to create/update index. Without this
+field, Index does not work well.
 
 Then, you have to create a list of all entities from which you will look up nation by its leader or factories.
 
 You can also create a list of factories of all nations, and create index from that list.
 
-SimpleObservableSet is a special type of ObservableSet. SimpleObservableSet does not have its owner.
-
 ```java
 public class Main {
     public static void main() {
-        SimpleObservableSet<Nation> nations = new SimpleObservableSet();
+        ObservableSet<?, Nation> nations = new ObservableSet<>();
 
         // look up nation by its leader
         Map<UUID, Nation> leaderIndex = nations.createIndex(Nation::getLeader);

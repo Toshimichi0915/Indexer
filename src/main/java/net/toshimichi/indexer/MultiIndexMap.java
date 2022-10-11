@@ -1,7 +1,6 @@
 package net.toshimichi.indexer;
 
 import java.util.AbstractMap;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -24,6 +23,7 @@ public class MultiIndexMap<K, V> extends AbstractMap<K, Set<V>> implements Obser
 
     public void add0(V obj) {
         ObservableField<V, K> field = function.apply(obj);
+        field.initialize(obj);
         field.subscribe(this);
 
         K key = field.get();

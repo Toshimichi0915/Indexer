@@ -7,9 +7,9 @@ public class Factory {
     private final ObservableField<Factory, Vec2i> end;
 
     public Factory(FactoryType factoryType, Vec2i start, Vec2i end) {
-        this.factoryType = new ObservableField<>(this, factoryType);
-        this.start = new ObservableField<>(this, start);
-        this.end = new ObservableField<>(this, end);
+        this.factoryType = new ObservableField<>(factoryType);
+        this.start = new ObservableField<>(start);
+        this.end = new ObservableField<>(end);
     }
 
     public ObservableField<Factory, FactoryType> getFactoryType() {

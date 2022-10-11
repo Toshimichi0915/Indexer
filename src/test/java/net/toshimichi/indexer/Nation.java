@@ -10,10 +10,10 @@ public class Nation {
     private final ObservableField<Nation, Vec2i> headquarter;
 
     public Nation(Vec2i headquarter) {
-        this.leaders = new ObservableSet<>(this);
-        this.regions = new ObservableSet<>(this);
-        this.factories = new ObservableSet<>(this);
-        this.headquarter = new ObservableField<>(this, headquarter);
+        this.leaders = new ObservableSet<>();
+        this.regions = new ObservableSet<>();
+        this.factories = new ObservableSet<>();
+        this.headquarter = new ObservableField<>(headquarter);
     }
 
     public ObservableSet<Nation, UUID> getLeaders() {
