@@ -93,4 +93,31 @@ public class ObservableSetTests {
         assertEquals(0, factories.size());
         assertEquals(0, factoryTypeIndex.size());
     }
+
+    @Test
+    public void testCreateFlatMultiIndex() {
+        ObservableSet<?, Nation> nations = new ObservableSet<>();
+        Map<Vec2i, Set<Nation>> chunkIndex = nations.createFlatMultiIndex(Nation::getChunks);
+        assertEquals(0, nations.size());
+        assertEquals(0, chunkIndex.size());
+
+        Nation nation0 = new Nation(new Vec2i(1, 2));
+        nations.add(nation0);
+        assertEquals(1, nations.size());
+        assertEquals(1, chunkIndex.size());
+
+        nation0.getStart().set(new Vec2i(1000, 2000));
+        nation0.getEnd().set(new Vec2i(1010, 2000));
+        assertEquals(1, nations.size());
+        assertEquals(2, chunkIndex.size());
+
+        nation0.getStart().set(new Vec2i(0, 0));
+        nation0.getEnd().set(new Vec2i(0, 0));
+        assertEquals(1, nations.size());
+        assertEquals(1, chunkIndex.size());
+
+        nations.remove(nation0);
+        assertEquals(0, nations.size());
+        assertEquals(0, chunkIndex.size());
+    }
 }

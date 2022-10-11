@@ -101,6 +101,13 @@ public class ObservableSet<O, E> extends AbstractSet<E> {
         return map;
     }
 
+    public <K> Map<K, Set<E>> createFlatMultiIndex(Function<E, ObservableSet<E, K>> function) {
+        FlatMultiIndexMap<K, E> map = new FlatMultiIndexMap<>(function);
+        forEach(map::add0);
+        subscribe(map::add0, map::remove0);
+        return map;
+    }
+
     public <K> ObservableSet<?, K> createFlatMap(Function<E, ObservableSet<E, K>> function) {
         FlatMapSet<E, K> set = new FlatMapSet<>(function);
         forEach(set::add0);
