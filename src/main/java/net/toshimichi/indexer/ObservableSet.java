@@ -13,7 +13,7 @@ import java.util.function.Predicate;
 
 public class ObservableSet<O, E> extends AbstractSet<E> {
 
-    private final HashSet<E> internal = new HashSet<>();
+    private final Set<E> internal = new HashSet<>();
     private final List<ObservableSetHandler<O, E>> handlers = new ArrayList<>();
     private O owner;
 

@@ -3,12 +3,13 @@ package net.toshimichi.indexer;
 import java.util.AbstractMap;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 
 public class IndexMap<K, V> extends AbstractMap<K, V> implements ObservableFieldHandler<V, K> {
 
-    private final HashMap<K, V> internal = new HashMap<>();
+    private final Map<K, V> internal = new HashMap<>();
     private final Function<V, ObservableField<V, K>> function;
 
     public IndexMap(Function<V, ObservableField<V, K>> function) {

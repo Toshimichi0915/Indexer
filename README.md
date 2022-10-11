@@ -1,6 +1,6 @@
 # Indexer
 
-Reactive library for Java
+A reactive library for Java
 
 ## Usage
 
@@ -13,8 +13,8 @@ public class Nation {
     private final ObservableSet<Nation, Factory> factories;
 
     public Nation(UUID leader) {
-        this.leader = new ObservableField(leader);
-        this.factories = new ObservableSet();
+        this.leader = new ObservableField<>(leader);
+        this.factories = new ObservableSet<>();
     }
 
     public ObservableField<Nation, UUID> getLeader() {
@@ -34,8 +34,8 @@ public class Factory {
     private final ObservableSet<Factory, UUID> members;
 
     public Factory(UUID supervisor) {
-        this.supervisor = new ObservableField(supervisor);
-        this.members = new ObservableSet();
+        this.supervisor = new ObservableField<>(supervisor);
+        this.members = new ObservableSet<>();
     }
 }
 ```
@@ -48,8 +48,6 @@ Then, you have to create a list of all entities from which you will look up nati
 You can also create a list of factories of all nations, and create index from that list.
 
 ```java
-import java.util.UUID;
-
 public class Main {
     public static void main() {
         ObservableSet<?, Nation> nations = new ObservableSet<>();
@@ -61,7 +59,7 @@ public class Main {
         Map<Factory, Nation> factoryIndex = nations.createFlatIndex(Nation::getFactories);
 
         // list all factories
-        SimpleObservableSet<Factory> factories = nations.createFlatMap(Nation::getFactories);
+        ObservableSet<Factory> factories = nations.createFlatMap(Nation::getFactories);
 
         // look up factory by its supervisor (A supervisor can work for only one factory)
         Map<UUID, Factory> supervisorIndex = factories.createIndex(Factory::getSupervisor);
