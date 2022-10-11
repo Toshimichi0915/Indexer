@@ -48,6 +48,8 @@ Then, you have to create a list of all entities from which you will look up nati
 You can also create a list of factories of all nations, and create index from that list.
 
 ```java
+import java.util.UUID;
+
 public class Main {
     public static void main() {
         ObservableSet<?, Nation> nations = new ObservableSet<>();
@@ -61,11 +63,14 @@ public class Main {
         // list all factories
         SimpleObservableSet<Factory> factories = nations.createFlatMap(Nation::getFactories);
 
-        // look up factory by its supervisor
+        // look up factory by its supervisor (A supervisor can work for only one factory)
         Map<UUID, Factory> supervisorIndex = factories.createIndex(Factory::getSupervisor);
 
+        // look up factory by its supervisor (A supervisor can work for multiple factories)
+        map<UUID, Set<Factory>> supervisorIndex2 = factories.createMultiIndex(Factory::getSupervisor);
+
         // look up factory by its members (A member can work for multiple factories)
-        Map<UUID, Set<Factory>> memberIndex = factories.createMultiIndex(Factory::getMembers);
+        Map<UUID, Set<Factory>> memberIndex = factories.createFlatMultiIndex(Factory::getMembers);
     }
 }
 ```
