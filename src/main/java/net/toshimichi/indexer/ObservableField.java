@@ -1,13 +1,12 @@
 package net.toshimichi.indexer;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ObservableField<O, V> {
 
     private O owner;
     private V value;
-    private final List<ObservableFieldHandler<O, V>> handlers = new ArrayList<>();
+    private final ArrayList<ObservableFieldHandler<O, V>> handlers = new ArrayList<>();
 
     public ObservableField(V value) {
         this.value = value;

@@ -22,7 +22,7 @@ public class FlatMapSet<K, V> extends ObservableSet<Object, V> implements Observ
         ObservableSet<K, V> set = function.apply(key);
         set.initialize(key);
 
-        // cannot be replaced by super#addAll because addAll method is overridden
+        // cannot be replaced by super#addAll because it causes UnsupportedOperationException
         set.forEach(super::add);
         set.subscribe(this);
     }

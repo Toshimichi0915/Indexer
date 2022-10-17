@@ -4,7 +4,6 @@ import java.util.AbstractSet;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -13,8 +12,8 @@ import java.util.function.Predicate;
 
 public class ObservableSet<O, E> extends AbstractSet<E> {
 
-    private final Set<E> internal = new HashSet<>();
-    private final List<ObservableSetHandler<O, E>> handlers = new ArrayList<>();
+    private final HashSet<E> internal = new HashSet<>();
+    private final ArrayList<ObservableSetHandler<O, E>> handlers = new ArrayList<>();
     private O owner;
 
     public O getOwner() {
@@ -31,31 +30,6 @@ public class ObservableSet<O, E> extends AbstractSet<E> {
         }
 
         this.owner = owner;
-    }
-
-    @Override
-    public Iterator<E> iterator() {
-        return new ObservableIterator(internal.iterator());
-    }
-
-    @Override
-    public int size() {
-        return internal.size();
-    }
-
-    @Override
-    public boolean add(E e) {
-        boolean result = internal.add(e);
-        if (result) handlers.forEach(it -> it.add(this, e));
-        return result;
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public boolean remove(Object o) {
-        boolean result = internal.remove(o);
-        if (result) handlers.forEach(it -> it.remove(this, (E) o));
-        return result;
     }
 
     public void subscribe(ObservableSetHandler<O, E> handler) {
@@ -113,6 +87,31 @@ public class ObservableSet<O, E> extends AbstractSet<E> {
         forEach(set::add0);
         subscribe(set::add0, set::remove0);
         return set;
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return new ObservableIterator(internal.iterator());
+    }
+
+    @Override
+    public int size() {
+        return internal.size();
+    }
+
+    @Override
+    public boolean add(E e) {
+        boolean result = internal.add(e);
+        if (result) handlers.forEach(it -> it.add(this, e));
+        return result;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean remove(Object o) {
+        boolean result = internal.remove(o);
+        if (result) handlers.forEach(it -> it.remove(this, (E) o));
+        return result;
     }
 
     private class ObservableIterator implements Iterator<E> {
