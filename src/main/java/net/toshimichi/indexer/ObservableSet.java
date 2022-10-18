@@ -95,11 +95,6 @@ public class ObservableSet<O, E> extends AbstractSet<E> {
     }
 
     @Override
-    public int size() {
-        return internal.size();
-    }
-
-    @Override
     public boolean add(E e) {
         boolean result = internal.add(e);
         if (result) handlers.forEach(it -> it.add(this, e));
@@ -112,6 +107,21 @@ public class ObservableSet<O, E> extends AbstractSet<E> {
         boolean result = internal.remove(o);
         if (result) handlers.forEach(it -> it.remove(this, (E) o));
         return result;
+    }
+
+    @Override
+    public int size() {
+        return internal.size();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return internal.isEmpty();
+    }
+
+    @Override
+    public boolean contains(Object o) {
+        return internal.contains(o);
     }
 
     private class ObservableIterator implements Iterator<E> {
