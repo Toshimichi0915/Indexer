@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'maven-publish'
+    id 'signing'
 }
 
 group 'net.toshimichi'
@@ -16,4 +18,49 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = rootProject.group
+            artifactId = rootProject.name
+            version = rootProject.version
+
+            from components.java
+
+            pom {
+                name = rootProject.name
+                description = 'A reactive library for Java'
+                url = 'https://github.com/Toshimichi0915/Indexer'
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://opensource.org/licenses/MIT'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'Toshimichi0915'
+                        name = 'Toshimichi'
+                        email = 'main@toshimichi.net'
+                    }
+                }
+                scm {
+                    connection = 'scm:git@github.com:Toshimichi0915/Indexer.git'
+                    developerConnection = 'scm:git@github.com:Toshimichi0915/Indexer.git'
+                    url = 'https://github.com/Toshimichi0915/Indexer'
+                }
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications
 }
