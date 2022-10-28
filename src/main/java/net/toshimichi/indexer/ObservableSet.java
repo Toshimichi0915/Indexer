@@ -97,7 +97,7 @@ public class ObservableSet<O, E> extends AbstractSet<E> {
     }
 
     /**
-     * Builds an index which maps elements to their owners.
+     * Creates an index which maps elements to their owners.
      * <p>
      * Duplicated elements are not allowed in this index. If you want to have duplicated elements,
      * use {@link #createMultiIndex(Function)}  instead
@@ -114,7 +114,7 @@ public class ObservableSet<O, E> extends AbstractSet<E> {
     }
 
     /**
-     * Builds an index which maps elements to their owners.
+     * Creates an index which maps elements to their owners.
      * <p>
      * Duplicated elements are not allowed in this index. If you want to have duplicated elements,
      * use {@link #createFlatMultiIndex(Function)} instead.
@@ -131,7 +131,7 @@ public class ObservableSet<O, E> extends AbstractSet<E> {
     }
 
     /**
-     * Builds an index which maps elements to their owners.
+     * Creates an index which maps elements to their owners.
      * <p>
      * This method almost works exactly the same as {@link #createIndex(Function)}.
      * However, duplicated elements are allowed in this index.
@@ -148,7 +148,7 @@ public class ObservableSet<O, E> extends AbstractSet<E> {
     }
 
     /**
-     * Builds an index which maps elements to their owners.
+     * Creates an index which maps elements to their owners.
      * <p>
      * This method almost works exactly the same as {@link #createFlatIndex(Function)}.
      * However, duplicated elements are allowed in this index.
@@ -165,7 +165,7 @@ public class ObservableSet<O, E> extends AbstractSet<E> {
     }
 
     /**
-     * Builds a set which maps the owners to their elements.
+     * Creates a set which maps the owners to their elements.
      *
      * @param function a function which maps the owners to their elements
      * @param <K>      the type of the elements in the set
