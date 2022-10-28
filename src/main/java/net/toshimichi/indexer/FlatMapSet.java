@@ -3,7 +3,7 @@ package net.toshimichi.indexer;
 import java.util.Iterator;
 import java.util.function.Function;
 
-public class FlatMapSet<K, V> extends ObservableSet<Object, V> implements ObservableSetHandler<K, V> {
+class FlatMapSet<K, V> extends ObservableSet<Object, V> implements ObservableSetHandler<K, V> {
 
     private final Function<K, ObservableSet<K, V>> function;
 

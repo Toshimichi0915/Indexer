@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.function.Function;
 
-public class FlatIndexMap<K, V> extends AbstractMap<K, V> implements ObservableSetHandler<V, K> {
+class FlatIndexMap<K, V> extends AbstractMap<K, V> implements ObservableSetHandler<V, K> {
 
     private final HashMap<K, V> internal = new HashMap<>();
     private final Function<V, ObservableSet<V, K>> function;

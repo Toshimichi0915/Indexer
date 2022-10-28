@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Function;
 
-public class MultiIndexMap<K, V> extends AbstractMap<K, Set<V>> implements ObservableFieldHandler<V, K> {
+class MultiIndexMap<K, V> extends AbstractMap<K, Set<V>> implements ObservableFieldHandler<V, K> {
 
     private final HashMap<K, Set<V>> internal = new HashMap<>();
     private final Function<V, ObservableField<V, K>> function;

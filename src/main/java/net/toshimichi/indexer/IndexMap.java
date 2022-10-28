@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.function.Function;
 
-public class IndexMap<K, V> extends AbstractMap<K, V> implements ObservableFieldHandler<V, K> {
+class IndexMap<K, V> extends AbstractMap<K, V> implements ObservableFieldHandler<V, K> {
 
     private final HashMap<K, V> internal = new HashMap<>();
     private final Function<V, ObservableField<V, K>> function;
