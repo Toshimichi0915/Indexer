@@ -52,12 +52,12 @@ public class Factory {
 }
 ```
 
-Both ObservableField and ObservableSet have **owner** field. This field is used to create/update index. Without this
-field, Index does not work well.
+Both ObservableField and ObservableSet have an **owner** field. This field is used to create/update indexes. Without this
+field, The index does not work well.
 
-Then, you have to create a list of all entities from which you will look up nation by its leader or factories.
+Then, you have to create a list of all entities from which you will look up a nation by its leader or factories.
 
-You can also create a list of factories of all nations, and create index from that list.
+You can also create a list of factories of all nations, and create an index from that list.
 
 ```java
 public class Main {
