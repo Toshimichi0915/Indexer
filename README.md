@@ -2,6 +2,18 @@
 
 A reactive library for Java
 
+## Installation
+
+```groovy
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'net.toshimichi:indexer:1.0.0'
+}
+```
+
 ## Usage
 
 First, you need an object with ObservableField or ObservableSet
