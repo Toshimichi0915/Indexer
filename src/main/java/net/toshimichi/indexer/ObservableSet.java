@@ -14,11 +14,11 @@ import java.util.function.Predicate;
  * This class provides an implementation of the {@link Set} interface which tracks changes to the set.
  * <p>
  * Element additions and removals can be observed by registering an {@link ObservableSetHandler}
- * with the {@link #subscribe(ObservableSetHandler)} method. There are also methods to build indexes
+ * with the {@link #subscribe(ObservableSetHandler)} method. There are also methods to create indexes
  * which automatically gets updated when the set changes. You can use these methods or implement your own
  * index by implementing the {@link ObservableSetHandler} interface.
  * <p>
- * This class must be initialized with an owner object to build some kinds of indexes.
+ * This class must be initialized with an owner object to create some kinds of indexes.
  * Although this class can be used without initialization, it is recommended to initialize this class whenever possible.
  *
  * @param <O> the type of the owner of this set
@@ -100,7 +100,7 @@ public class ObservableSet<O, E> extends AbstractSet<E> {
      * Creates an index which maps elements to their owners.
      * <p>
      * Duplicated elements are not allowed in this index. If you want to have duplicated elements,
-     * use {@link #createMultiIndex(Function)}  instead
+     * use {@link #createMultiIndex(Function)} instead.
      *
      * @param function a function which maps the owners to their elements
      * @param <K>      the type of the elements in the index
