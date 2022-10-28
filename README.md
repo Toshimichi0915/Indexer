@@ -53,7 +53,7 @@ public class Factory {
 ```
 
 Both ObservableField and ObservableSet have an **owner** field. This field is used to create/update indexes. Without this
-field, The index does not work well.
+field, indexes does not work well.
 
 Then, you have to create a list of all entities from which you will look up a nation by its leader or factories.
 
