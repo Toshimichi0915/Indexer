@@ -13,7 +13,7 @@ public class ObservableSetTests {
 
     @Test
     public void testCreateIndex() {
-        ObservableSet<?, Nation> nations = new ObservableSet<>();
+        ObservableSet<Object, Nation> nations = new ObservableSet<>();
         Map<Vec2i, Nation> headquarterIndex = nations.createIndex(Nation::getHeadquarter);
         assertEquals(0, headquarterIndex.size());
 
@@ -36,7 +36,7 @@ public class ObservableSetTests {
 
     @Test
     public void testCreateFlatIndex() {
-        ObservableSet<?, Nation> nations = new ObservableSet<>();
+        ObservableSet<Object, Nation> nations = new ObservableSet<>();
         Map<UUID, Nation> leaderIndex = nations.createFlatIndex(Nation::getLeaders);
         assertEquals(0, leaderIndex.size());
 
@@ -69,8 +69,8 @@ public class ObservableSetTests {
 
     @Test
     public void testCreateMultiIndex() {
-        ObservableSet<?, Nation> nations = new ObservableSet<>();
-        ObservableSet<?, Factory> factories = nations.createFlatMap(Nation::getFactories);
+        ObservableSet<Object, Nation> nations = new ObservableSet<>();
+        ObservableSet<Object, Factory> factories = nations.createFlatMap(Nation::getFactories);
         Map<FactoryType, Set<Factory>> factoryTypeIndex = factories.createMultiIndex(Factory::getFactoryType);
         assertEquals(0, nations.size());
         assertEquals(0, factories.size());
@@ -96,7 +96,7 @@ public class ObservableSetTests {
 
     @Test
     public void testCreateFlatMultiIndex() {
-        ObservableSet<?, Nation> nations = new ObservableSet<>();
+        ObservableSet<Object, Nation> nations = new ObservableSet<>();
         Map<Vec2i, Set<Nation>> chunkIndex = nations.createFlatMultiIndex(Nation::getChunks);
         assertEquals(0, nations.size());
         assertEquals(0, chunkIndex.size());

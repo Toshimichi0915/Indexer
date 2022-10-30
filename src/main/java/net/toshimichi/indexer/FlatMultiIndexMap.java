@@ -48,12 +48,10 @@ class FlatMultiIndexMap<K, V> extends AbstractMap<K, Set<V>> implements Observab
     }
 
     @Override
-    public boolean remove(ObservableSet<V, K> set, K element) {
+    public void remove(ObservableSet<V, K> set, K element) {
         Collection<V> collection = internal.get(element);
-        boolean result = collection.remove(set.getOwner());
+        collection.remove(set.getOwner());
         if (collection.isEmpty()) internal.remove(element);
-
-        return result;
     }
 
     @Override

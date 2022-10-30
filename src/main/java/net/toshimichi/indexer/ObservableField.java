@@ -19,7 +19,7 @@ public class ObservableField<O, V> {
     private final ArrayList<ObservableFieldHandler<O, V>> handlers = new ArrayList<>();
 
     /**
-     * Creates a new instance of this class.
+     * Constructs a new instance of this class.
      *
      * @param value the initial value of this field, can be {@code null}
      */
