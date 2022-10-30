@@ -47,6 +47,7 @@ public class ObservableSet<O, E> extends AbstractSet<E> {
      * Initializes this set.
      *
      * @param owner the owner of this set
+     * @throws IllegalStateException if this set is already initialized and the owner is different
      */
     public void initialize(O owner) {
         if (this.owner != null) {

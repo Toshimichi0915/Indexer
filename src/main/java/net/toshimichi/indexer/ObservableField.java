@@ -31,6 +31,7 @@ public class ObservableField<O, V> {
      * Gets the owner of this field.
      *
      * @return the owner of this field
+     * @throws IllegalStateException if this set is not initialized
      */
     public O getOwner() {
         if (owner == null) {
@@ -43,7 +44,7 @@ public class ObservableField<O, V> {
      * Initializes this field.
      *
      * @param owner the owner of this field
-     * @throws IllegalStateException if this field is already initialized
+     * @throws IllegalStateException if this field is already initialized and the owner is different
      */
     public void initialize(O owner) {
         if (this.owner != null) {
