@@ -4,6 +4,20 @@ A reactive library for Java
 
 ## Installation
 
+### Snapshot
+
+```groovy
+repositories {
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+}
+
+dependencies {
+    implementation 'net.toshimichi:indexer:1.1.0-SNAPSHOT'
+}
+```
+
+### Release
+
 ```groovy
 repositories {
     mavenCentral()
@@ -15,6 +29,8 @@ dependencies {
 ```
 
 ## Usage
+
+### Basic
 
 First, you need an object with ObservableField or ObservableSet
 
@@ -82,6 +98,40 @@ public class Main {
 
         // look up factory by its members (A member can work for multiple factories)
         Map<UUID, Set<Factory>> memberIndex = factories.createFlatMultiIndex(Factory::getMembers);
+    }
+}
+```
+
+### Cache
+
+Indexer also provides a way to remove elements under certain conditions.
+
+```java
+public class Main {
+    public static void main() {
+        ObservableSet<Object, Nation> nations = new ObservableSet<>();
+
+        // delete elements when the size of nations is over 100
+        CapacityCacheStrategy<Nation> ccs = new CapacityCacheStrategy<>(100);
+        CacheHandler<Object, Nation, ?> cch = new CacheHandler<>(nations, ccs);
+        nations.subscribe(cch);
+
+        // delete elements when elements are not updated for 1 hour
+        ExpirationCacheStrategy<Nation> ecs = new ExpirationCacheStrategy<>(1, ChronoUnit.HOURS);
+        CacheHandler<Object, Nation, ?> ech = new CacheHandler<>(nations, ecs);
+        nations.subscribe(ech);
+
+        // automatically clean up when elements are added/removed
+        nations.subscribe(n -> cch.clean(), n -> cch.clean());
+
+        // manually clean up
+        ech.clean();
+
+        Nation n0 = new Nation(new Vec2i(0, 0));
+        nations.add(n0);
+
+        // mark the element as the most recently used
+        ech.update(n0);
     }
 }
 ```
