@@ -3,5 +3,4 @@
  */
 open module indexer {
     exports net.toshimichi.indexer;
-    exports net.toshimichi.indexer.cache;
 }

@@ -68,8 +68,7 @@ public class Factory {
 }
 ```
 
-Both ObservableField and ObservableSet have an **owner** field. This field is used to create/update indexes. Without
-this
+Both ObservableField and ObservableSet have an **owner** field. This field is used to create/update indexes. Without this
 field, indexes does not work well.
 
 Then, you have to create a list of all entities from which you will look up a nation by its leader or factories.
@@ -79,7 +78,7 @@ You can also create a list of factories of all nations, and create an index from
 ```java
 public class Main {
     public static void main() {
-        ObservableSet<?, Nation> nations = new ObservableSet<>();
+        ObservableSet<Object, Nation> nations = new ObservableSet<>();
 
         // look up nation by its leader
         Map<UUID, Nation> leaderIndex = nations.createIndex(Nation::getLeader);
@@ -98,40 +97,6 @@ public class Main {
 
         // look up factory by its members (A member can work for multiple factories)
         Map<UUID, Set<Factory>> memberIndex = factories.createFlatMultiIndex(Factory::getMembers);
-    }
-}
-```
-
-### Cache
-
-Indexer also provides a way to remove elements under certain conditions.
-
-```java
-public class Main {
-    public static void main() {
-        ObservableSet<Object, Nation> nations = new ObservableSet<>();
-
-        // delete elements when the size of nations is over 100
-        CapacityCacheStrategy<Nation> ccs = new CapacityCacheStrategy<>(100);
-        CacheHandler<Object, Nation, ?> cch = new CacheHandler<>(nations, ccs);
-        nations.subscribe(cch);
-
-        // delete elements when elements are not updated for 1 hour
-        ExpirationCacheStrategy<Nation> ecs = new ExpirationCacheStrategy<>(1, ChronoUnit.HOURS);
-        CacheHandler<Object, Nation, ?> ech = new CacheHandler<>(nations, ecs);
-        nations.subscribe(ech);
-
-        // automatically clean up when elements are added/removed
-        nations.subscribe(n -> cch.clean(), n -> cch.clean());
-
-        // manually clean up
-        ech.clean();
-
-        Nation n0 = new Nation(new Vec2i(0, 0));
-        nations.add(n0);
-
-        // mark the element as the most recently used
-        ech.update(n0);
     }
 }
 ```

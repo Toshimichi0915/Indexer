@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * This class provides an implementation of the {@link Set} interface which tracks changes to the set.
@@ -69,21 +70,19 @@ public class ObservableSet<O, E> extends AbstractSet<E> {
     /**
      * Subscribes the specified handler to this set.
      *
-     * @param adder   a consumer which is called when an element is added to this set, can be {@code null}
-     * @param remover a consumer which is called when an element is removed from this set, can be {@code null}
+     * @param adder   a consumer which is called when an element is added to this set
+     * @param remover a consumer which is called when an element is removed from this set
      */
-    public void subscribe(Consumer<E> adder, Consumer<E> remover) {
+    public void subscribe(Consumer<E> adder, Predicate<E> remover) {
         subscribe(new ObservableSetHandler<>() {
             @Override
             public void add(ObservableSet<O, E> set, E element) {
-                if (adder == null) return;
                 adder.accept(element);
             }
 
             @Override
-            public void remove(ObservableSet<O, E> set, E element) {
-                if (remover == null) return;
-                remover.accept(element);
+            public boolean remove(ObservableSet<O, E> set, E element) {
+                return remover.test(element);
             }
         });
     }
@@ -173,7 +172,7 @@ public class ObservableSet<O, E> extends AbstractSet<E> {
      * @param <K>      the type of the elements in the set
      * @return the set
      */
-    public <K> ObservableSet<Object, K> createFlatMap(Function<E, ObservableSet<E, K>> function) {
+    public <K> ObservableSet<?, K> createFlatMap(Function<E, ObservableSet<E, K>> function) {
         FlatMapSet<E, K> set = new FlatMapSet<>(function);
         forEach(set::add0);
         subscribe(set::add0, set::remove0);

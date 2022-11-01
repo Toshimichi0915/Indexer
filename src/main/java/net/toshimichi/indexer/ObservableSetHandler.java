@@ -21,6 +21,7 @@ public interface ObservableSetHandler<O, E> {
      *
      * @param set     the set
      * @param element the removed element
+     * @return true if the element is removed
      */
-    void remove(ObservableSet<O, E> set, E element);
+    boolean remove(ObservableSet<O, E> set, E element);
 }
