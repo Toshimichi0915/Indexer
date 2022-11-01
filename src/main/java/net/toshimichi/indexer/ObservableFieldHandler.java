@@ -16,5 +16,5 @@ public interface ObservableFieldHandler<O, V> {
      * @param old     the old value
      * @param updated the updated value
      */
-    void accept(ObservableField<O, V> field, V old, V updated);
+    void accept(ObservableField<? extends O, ? extends V> field, V old, V updated);
 }

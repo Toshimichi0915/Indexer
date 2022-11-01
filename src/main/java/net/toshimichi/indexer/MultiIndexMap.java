@@ -49,7 +49,7 @@ class MultiIndexMap<K, V> extends AbstractMap<K, Set<V>> implements ObservableFi
     }
 
     @Override
-    public void accept(ObservableField<V, K> field, K old, K updated) {
+    public void accept(ObservableField<? extends V, ? extends K> field, K old, K updated) {
         if (old != null) internal.remove(old);
         if (updated != null) put0(updated, field.getOwner());
     }

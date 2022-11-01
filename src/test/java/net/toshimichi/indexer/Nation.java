@@ -67,7 +67,7 @@ public class Nation implements ObservableFieldHandler<Nation, Vec2i> {
     }
 
     @Override
-    public void accept(ObservableField<Nation, Vec2i> field, Vec2i old, Vec2i updated) {
+    public void accept(ObservableField<? extends Nation, ? extends Vec2i> field, Vec2i old, Vec2i updated) {
         updateChunks();
     }
 }

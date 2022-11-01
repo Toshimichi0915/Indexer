@@ -39,7 +39,7 @@ class IndexMap<K, V> extends AbstractMap<K, V> implements ObservableFieldHandler
     }
 
     @Override
-    public void accept(ObservableField<V, K> field, K old, K updated) {
+    public void accept(ObservableField<? extends V, ? extends K> field, K old, K updated) {
         V owner = field.getOwner();
         internal.remove(old);
         put0(updated, owner);

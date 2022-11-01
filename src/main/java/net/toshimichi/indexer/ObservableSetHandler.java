@@ -14,7 +14,7 @@ public interface ObservableSetHandler<O, E> {
      * @param set     the set
      * @param element the added element
      */
-    void add(ObservableSet<O, E> set, E element);
+    void add(ObservableSet<? extends O, ? extends E> set, E element);
 
     /**
      * Called when an element is removed from the set.
@@ -23,5 +23,5 @@ public interface ObservableSetHandler<O, E> {
      * @param element the removed element
      * @return true if the element is removed
      */
-    boolean remove(ObservableSet<O, E> set, E element);
+    boolean remove(ObservableSet<? extends O, ? extends E> set, E element);
 }

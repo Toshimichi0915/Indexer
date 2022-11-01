@@ -27,7 +27,7 @@ import java.util.function.Predicate;
 public class ObservableSet<O, E> extends AbstractSet<E> {
 
     private final HashSet<E> internal = new HashSet<>();
-    private final ArrayList<ObservableSetHandler<O, E>> handlers = new ArrayList<>();
+    private final ArrayList<ObservableSetHandler<? super O, ? super E>> handlers = new ArrayList<>();
     private O owner;
 
     /**
@@ -63,7 +63,7 @@ public class ObservableSet<O, E> extends AbstractSet<E> {
      *
      * @param handler the handler to subscribe
      */
-    public void subscribe(ObservableSetHandler<O, E> handler) {
+    public void subscribe(ObservableSetHandler<? super O, ? super E> handler) {
         handlers.add(handler);
     }
 
@@ -73,15 +73,15 @@ public class ObservableSet<O, E> extends AbstractSet<E> {
      * @param adder   a consumer which is called when an element is added to this set
      * @param remover a consumer which is called when an element is removed from this set
      */
-    public void subscribe(Consumer<E> adder, Predicate<E> remover) {
+    public void subscribe(Consumer<? super E> adder, Predicate<? super E> remover) {
         subscribe(new ObservableSetHandler<>() {
             @Override
-            public void add(ObservableSet<O, E> set, E element) {
+            public void add(ObservableSet<? extends O, ? extends E> set, E element) {
                 adder.accept(element);
             }
 
             @Override
-            public boolean remove(ObservableSet<O, E> set, E element) {
+            public boolean remove(ObservableSet<? extends O, ? extends E> set, E element) {
                 return remover.test(element);
             }
         });
@@ -93,7 +93,7 @@ public class ObservableSet<O, E> extends AbstractSet<E> {
      * @param handler the handler to unsubscribe
      * @return true if the handler was subscribed to this set
      */
-    public boolean unsubscribe(ObservableSetHandler<O, E> handler) {
+    public boolean unsubscribe(ObservableSetHandler<? super O, ? super E> handler) {
         return handlers.remove(handler);
     }
 

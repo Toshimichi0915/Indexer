@@ -16,7 +16,7 @@ public class ObservableField<O, V> {
 
     private O owner;
     private V value;
-    private final ArrayList<ObservableFieldHandler<O, V>> handlers = new ArrayList<>();
+    private final ArrayList<ObservableFieldHandler<? super O, ? super V>> handlers = new ArrayList<>();
 
     /**
      * Creates a new instance of this class.
@@ -80,7 +80,7 @@ public class ObservableField<O, V> {
      *
      * @param handler the handler to subscribe
      */
-    public void subscribe(ObservableFieldHandler<O, V> handler) {
+    public void subscribe(ObservableFieldHandler<? super O, ? super V> handler) {
         handlers.add(handler);
     }
 
@@ -90,7 +90,7 @@ public class ObservableField<O, V> {
      * @param handler the handler to unsubscribe
      * @return true if the handler was subscribed to this field
      */
-    public boolean unsubscribe(ObservableFieldHandler<O, V> handler) {
+    public boolean unsubscribe(ObservableFieldHandler<? super O, ? super V> handler) {
         return handlers.remove(handler);
     }
 }

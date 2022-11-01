@@ -35,12 +35,12 @@ class FlatMapSet<K, V> extends ObservableSet<Object, V> implements ObservableSet
     }
 
     @Override
-    public void add(ObservableSet<K, V> set, V element) {
+    public void add(ObservableSet<? extends K, ? extends V> set, V element) {
         add1(element);
     }
 
     @Override
-    public boolean remove(ObservableSet<K, V> set, V element) {
+    public boolean remove(ObservableSet<? extends K, ? extends V> set, V element) {
         return super.remove(element);
     }
 
