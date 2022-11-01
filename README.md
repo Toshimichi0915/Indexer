@@ -4,27 +4,13 @@ A reactive library for Java
 
 ## Installation
 
-### Snapshot
-
-```groovy
-repositories {
-    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
-}
-
-dependencies {
-    implementation 'net.toshimichi:indexer:1.1.0-SNAPSHOT'
-}
-```
-
-### Release
-
 ```groovy
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation 'net.toshimichi:indexer:1.0.0'
+    implementation 'net.toshimichi:indexer:1.0.2'
 }
 ```
 
