@@ -44,8 +44,8 @@ class FlatIndexMap<K, V> extends AbstractMap<K, V> implements ObservableSetHandl
     }
 
     @Override
-    public boolean remove(ObservableSet<? extends V, ? extends K> set, K element) {
-        return internal.remove(element) != null;
+    public void remove(ObservableSet<? extends V, ? extends K> set, K element) {
+        internal.remove(element);
     }
 
     @Override

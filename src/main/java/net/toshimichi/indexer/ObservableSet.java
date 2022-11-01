@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Predicate;
 
 /**
  * This class provides an implementation of the {@link Set} interface which tracks changes to the set.
@@ -73,7 +72,7 @@ public class ObservableSet<O, E> extends AbstractSet<E> {
      * @param adder   a consumer which is called when an element is added to this set
      * @param remover a consumer which is called when an element is removed from this set
      */
-    public void subscribe(Consumer<? super E> adder, Predicate<? super E> remover) {
+    public void subscribe(Consumer<? super E> adder, Consumer<? super E> remover) {
         subscribe(new ObservableSetHandler<>() {
             @Override
             public void add(ObservableSet<? extends O, ? extends E> set, E element) {
@@ -81,8 +80,8 @@ public class ObservableSet<O, E> extends AbstractSet<E> {
             }
 
             @Override
-            public boolean remove(ObservableSet<? extends O, ? extends E> set, E element) {
-                return remover.test(element);
+            public void remove(ObservableSet<? extends O, ? extends E> set, E element) {
+                remover.accept(element);
             }
         });
     }
