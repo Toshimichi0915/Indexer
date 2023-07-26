@@ -51,6 +51,14 @@ public class Factory {
         this.supervisor = new ObservableField<>(supervisor);
         this.members = new ObservableSet<>();
     }
+
+    public ObservableField<Factory, UUID> getSupervisor() {
+        return supervisor;
+    }
+
+    public ObservableSet<Factory, UUID> getMembers() {
+        return members;
+    }
 }
 ```
 
@@ -63,8 +71,8 @@ You can also create a list of factories of all nations, and create an index from
 
 ```java
 public class Main {
-    public static void main() {
-        ObservableSet<Object, Nation> nations = new ObservableSet<>();
+    public static void main(String[] args) {
+        ObservableSet<?, Nation> nations = new ObservableSet<>();
 
         // look up nation by its leader
         Map<UUID, Nation> leaderIndex = nations.createIndex(Nation::getLeader);
@@ -73,13 +81,13 @@ public class Main {
         Map<Factory, Nation> factoryIndex = nations.createFlatIndex(Nation::getFactories);
 
         // list all factories
-        ObservableSet<Factory> factories = nations.createFlatMap(Nation::getFactories);
+        ObservableSet<?, Factory> factories = nations.createFlatMap(Nation::getFactories);
 
         // look up factory by its supervisor (A supervisor can work for only one factory)
         Map<UUID, Factory> supervisorIndex = factories.createIndex(Factory::getSupervisor);
 
         // look up factory by its supervisor (A supervisor can work for multiple factories)
-        map<UUID, Set<Factory>> supervisorIndex2 = factories.createMultiIndex(Factory::getSupervisor);
+        Map<UUID, Set<Factory>> supervisorIndex2 = factories.createMultiIndex(Factory::getSupervisor);
 
         // look up factory by its members (A member can work for multiple factories)
         Map<UUID, Set<Factory>> memberIndex = factories.createFlatMultiIndex(Factory::getMembers);
